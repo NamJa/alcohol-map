@@ -12,7 +12,7 @@
 <div id="map"></div><br>
 
 <div class="container">
-  <form class="row" action="../home/add_req" onsubmit="return validateForm()" method="post">
+  <form class="row" action="./home/add_req" onsubmit="return validateForm()" method="post">
     <div class="form-group col-md-2">
       <select class="form-control" name="category" id="category">
         <option value="Pub">Pub</option>
@@ -70,7 +70,7 @@
       <% for i in 1..Place.last.id %>
         <% unless Place.find_by(id: i).nil? %>
           contentString[<%= i %>] = '<h4><span class="label label-primary"><%= Place.find(i).category %></span></h4>' +
-            '<h3><b><a href="/place?id=<%= Place.find(i).id %>" style="text-decoration:none;"><%= Place.find(i).placename %></a></b></h3>'+
+            '<h3><b><a href="./place?id=<%= Place.find(i).id %>" style="text-decoration:none;"><%= Place.find(i).placename %></a></b></h3>'+
             '<p><%= Place.find(i).address %></p>'+
             '<h4><a href="<%= Place.find(i).website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a> ' +
             '<a href="https://www.google.com/maps/dir//<%= URI.encode(Place.find(i).address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a> ' +
@@ -79,7 +79,7 @@
           marker[<%= i %>] = new google.maps.Marker({
             position: {lat: <%= Place.find(i).latitude %>, lng: <%= Place.find(i).longitude %>},
             map: map,
-            icon: '/<%= Place.find(i).category %>.png',
+            icon: './<%= Place.find(i).category %>.png',
             title: '<%= Place.find(i).placename %>'
           });
           marker[<%= i %>].addListener('click', function() {

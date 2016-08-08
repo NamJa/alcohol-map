@@ -38,7 +38,7 @@ img {
     $( "img" ).addClass( "img-responsive" );
     $('.starrr').starrr({
       change: function(e, value){
-        window.location.href = "/home/rating_submit?id=<%= @place.id %>&score=" + value;
+        window.location.href = "./home/rating_submit?id=<%= @place.id %>&score=" + value;
       }
     })
 </script>
