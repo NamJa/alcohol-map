@@ -1,0 +1,51 @@
+<%= render "layouts/nav" %>
+
+<div class="container">
+  <h1>장소 추가 요청</h1>
+  <form class="row" action="<%= $root %>home/add_req" onsubmit="return validateForm()" method="post">
+    <div class="form-group col-md-2">
+      <select class="form-control" name="category" id="category">
+        <option value="Pub">Pub</option>
+        <option value="Bar">Bar</option>
+        <option value="Store">Store</option>
+      </select>
+    </div>
+    <div class="form-group col-md-3">
+      <input type="text" class="form-control" name="placename" id="placename" placeholder="이름">
+    </div>
+    <div class="form-group col-md-4">
+      <input type="text" class="form-control" name="address" id="address" placeholder="주소">
+    </div>
+    <div class="form-group col-md-3">
+      <input type="url" class="form-control" name="website" id="website" placeholder="웹사이트">
+    </div>
+    <div class="form-group col-md-12">
+      <button type="submit" class="btn btn-default btn-block"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> 요청하기</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  function validateForm() {
+      var placename = document.getElementById("placename").value;
+      var address = document.getElementById("address").value;
+      var website = document.getElementById("website").value;
+      if (placename == null || placename == "") {
+          alert("이름을 입력하세요.");
+          document.getElementById("placename").focus();
+          return false;
+      }
+      else if (address == null || address == "") {
+          alert("주소를 입력하세요.");
+          document.getElementById("address").focus();
+          return false;
+      }
+      else if (website == null || website == "") {
+          alert("웹사이트를 입력하세요.");
+          document.getElementById("website").focus();
+          return false;
+      }
+  }
+  
+    $( "li[name=Request]" ).addClass( "active" );   
+</script>

@@ -1,6 +1,16 @@
 require 'open-uri'
 class HomeController < ApplicationController
   def index
+    @category = params[:category]
+    if @category.nil?
+      @place = Place.all
+      @category = "All"
+    else
+      @place = Place.where(category: @category)
+    end
+  end
+  
+  def req
   end
   
   def manage

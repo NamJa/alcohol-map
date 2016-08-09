@@ -1,0 +1,22 @@
+<style>
+  .nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-justified > li > a {
+    margin-bottom: 0;
+  }
+  .nav > li > a:hover, .nav > li > a:focus {
+    background-color: #000000;
+  }
+</style>
+
+<div class="menu">
+  <ul class="nav nav-pills nav-justified">
+  	<li role="presentation" name="All" ><a class="btn-default" href="<%= $root %>">All</a></li>
+    <li role="presentation" name="Pub" ><a class="btn-default" href="<%= $root %>?category=Pub">Pub</a></li>
+    <li role="presentation" name="Bar" ><a class="btn-default" href="<%= $root %>?category=Bar">Bar</a></li>
+    <li role="presentation" name="Store" ><a class="btn-default" href="<%= $root %>?category=Store">Store</a></li>
+    <li role="presentation" name="Request" ><a class="btn-default" href="<%= $root %>request">Request</a></li>
+  </ul>
+</div>

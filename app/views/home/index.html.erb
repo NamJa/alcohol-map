@@ -1,62 +1,19 @@
 <style>
-  html, body {
+  body, html {
     height: 100%;
-    margin: 0;
-    padding: 0;
+    width: 100%;
   }
   #map {
-    height: 80%;
+    width: 100%;
+    height: 90%;
   }
 </style>
 
+<%= render "layouts/nav" %>
+
 <div id="map"></div><br>
 
-<div class="container">
-  <form class="row" action="./home/add_req" onsubmit="return validateForm()" method="post">
-    <div class="form-group col-md-2">
-      <select class="form-control" name="category" id="category">
-        <option value="Pub">Pub</option>
-        <option value="Bar">Bar</option>
-        <option value="Store">Store</option>
-      </select>
-    </div>
-    <div class="form-group col-md-3">
-      <input type="text" class="form-control" name="placename" id="placename" placeholder="이름">
-    </div>
-    <div class="form-group col-md-4">
-      <input type="text" class="form-control" name="address" id="address" placeholder="주소">
-    </div>
-    <div class="form-group col-md-3">
-      <input type="url" class="form-control" name="website" id="website" placeholder="웹사이트">
-    </div>
-    <div class="form-group col-md-12">
-      <button type="submit" class="btn btn-default btn-block">요청하기</button>
-    </div>
-  </form>
-</div>
-
 <script>
-  function validateForm() {
-      var placename = document.getElementById("placename").value;
-      var address = document.getElementById("address").value;
-      var website = document.getElementById("website").value;
-      if (placename == null || placename == "") {
-          alert("이름을 입력하세요.");
-          document.getElementById("placename").focus();
-          return false;
-      }
-      else if (address == null || address == "") {
-          alert("주소를 입력하세요.");
-          document.getElementById("address").focus();
-          return false;
-      }
-      else if (website == null || website == "") {
-          alert("웹사이트를 입력하세요.");
-          document.getElementById("website").focus();
-          return false;
-      }
-  }
-
   function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 11,
@@ -66,31 +23,30 @@
     var infowindow = new google.maps.InfoWindow();
     var contentString = [];
     var marker = [];
-    <% unless Place.last.nil? %>
-      <% for i in 1..Place.last.id %>
-        <% unless Place.find_by(id: i).nil? %>
-          contentString[<%= i %>] = '<h4><span class="label label-primary"><%= Place.find(i).category %></span></h4>' +
-            '<h3><b><a href="<%= $root %>place?id=<%= Place.find(i).id %>" style="text-decoration:none;"><%= Place.find(i).placename %></a></b></h3>'+
-            '<p><%= Place.find(i).address %></p>'+
-            '<h4><a href="<%= Place.find(i).website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a> ' +
-            '<a href="https://www.google.com/maps/dir//<%= URI.encode(Place.find(i).address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a> ' +
-            '<span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (Place.find(i).rating.to_f / Place.find(i).rating_count.to_f).round(1) %>/5.0</span></h4>';
-            
-          marker[<%= i %>] = new google.maps.Marker({
-            position: {lat: <%= Place.find(i).latitude %>, lng: <%= Place.find(i).longitude %>},
-            map: map,
-            icon: '<%= $root %><%= Place.find(i).category %>.png',
-            title: '<%= Place.find(i).placename %>'
-          });
-          marker[<%= i %>].addListener('click', function() {
-            infowindow.setContent(contentString[<%= i %>]);
-            infowindow.open(map, marker[<%= i %>]);
-          });
-        <% end %>
+    <% unless @place.nil? %>
+      <% for i in 0..(@place.count - 1) %>
+        contentString[<%= i %>] = '<h4><span class="label label-primary"><%= @place[i].category %></span></h4>' +
+          '<h3><b><a href="<%= $root %>place?id=<%= @place[i].id %>" style="text-decoration:none;"><%= @place[i].placename %></a></b></h3>'+
+          '<p><%= @place[i].address %></p>'+
+          '<h4><a href="<%= @place[i].website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a> ' +
+          '<a href="https://www.google.com/maps/dir//<%= URI.encode(@place[i].address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a> ' +
+          '<span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (@place[i].rating.to_f / @place[i].rating_count.to_f).round(1) %>/5.0</span></h4>';
+          
+        marker[<%= i %>] = new google.maps.Marker({
+          position: {lat: <%= @place[i].latitude %>, lng: <%= @place[i].longitude %>},
+          map: map,
+          icon: '<%= $root %><%= @place[i].category %>.png',
+          title: '<%= @place[i].placename %>'
+        });
+        marker[<%= i %>].addListener('click', function() {
+          infowindow.setContent(contentString[<%= i %>]);
+          infowindow.open(map, marker[<%= i %>]);
+        });
       <% end %>
     <% end %>
   }
-
+    
+    $( "li[name=<%= @category %>]" ).addClass( "active" );
     $('.starrr').starrr({
       readOnly: true
     })
