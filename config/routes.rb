@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-  get 'home/index'
+  get 'home/index' 
   get 'manage' => 'home#manage'
   post 'home/add_req'
   get 'home/add_place'
