@@ -79,7 +79,7 @@
           marker[<%= i %>] = new google.maps.Marker({
             position: {lat: <%= Place.find(i).latitude %>, lng: <%= Place.find(i).longitude %>},
             map: map,
-            icon: '<%= Place.find(i).category %>.png',
+            icon: '../<%= Place.find(i).category %>.png',
             title: '<%= Place.find(i).placename %>'
           });
           marker[<%= i %>].addListener('click', function() {
