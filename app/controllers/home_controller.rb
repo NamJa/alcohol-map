@@ -22,7 +22,7 @@ class HomeController < ApplicationController
   
   def add_req
     unless params[:category] == "Pub" || params[:category] == "Bar" || params[:category] == "Store" 
-      redirect_to $root
+      redirect_to $root + "request"
     end
     
     doc = Nokogiri::HTML(open("https://maps.googleapis.com/maps/api/geocode/xml?address=" + URI.encode(params[:address]) + "&key=AIzaSyBFwh5f4ZyyxHLsCvK339Bx2Uu7c4uxK80"))
@@ -31,7 +31,7 @@ class HomeController < ApplicationController
     if status == "OK"
       Request.new(category: params[:category], placename: params[:placename], address: params[:address], website: params[:website]).save
     end
-    redirect_to $root
+    redirect_to $root + "request"
   end
   
   def add_place
