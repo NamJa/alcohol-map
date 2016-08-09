@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'home#index'
+  root to: redirect('home/index')
   get 'home/index' 
   get 'manage' => 'home#manage'
   post 'home/add_req'
