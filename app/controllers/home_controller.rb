@@ -77,7 +77,7 @@ class HomeController < ApplicationController
     place.update(website: params[:website], content: params[:content])
     
     if place.save
-      redirect_to "../place?id=" + params[:id]
+      redirect_to "/place?id=" + params[:id]
     end
   end
   
