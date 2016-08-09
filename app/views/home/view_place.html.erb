@@ -28,9 +28,9 @@ img {
             <br>
         </div>
     </div>
-    <a class="btn btn-default" href="../"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> 지도</a>
+    <a class="btn btn-default" href="./"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> 지도</a>
     <div class="pull-right">
-        <a class="btn btn-default" href="../edit?id=<%= @place.id %>"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 수정</a>
+        <a class="btn btn-default" href="./edit?id=<%= @place.id %>"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 수정</a>
     </div>
 </div>
 
@@ -38,7 +38,7 @@ img {
     $( "img" ).addClass( "img-responsive" );
     $('.starrr').starrr({
       change: function(e, value){
-        window.location.href = "../home/rating_submit?id=<%= @place.id %>&score=" + value;
+        window.location.href = "./home/rating_submit?id=<%= @place.id %>&score=" + value;
       }
     })
 </script>

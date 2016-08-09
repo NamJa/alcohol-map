@@ -3,14 +3,14 @@
     <% Request.all.each do |r| %>
         <div class="well well-sm col-md-12">
             <span class="label label-default"><%= r.category %></span> <%= r.placename %> <%= r.address %> <a href="<%= r.website %>"><%= r.website %></a>
-            <span class="pull-right"><span class="label label-default"><%= r.created_at.in_time_zone("Seoul").strftime("%Y-%m-%d %H:%M") %></span> <a class="btn btn-default btn-xs" href="../home/add_place/?id=<%= r.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a> <a class="btn btn-default btn-xs" href="../home/request_delete/?id=<%= r.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></span>
+            <span class="pull-right"><span class="label label-default"><%= r.created_at.in_time_zone("Seoul").strftime("%Y-%m-%d %H:%M") %></span> <a class="btn btn-default btn-xs" href="./home/add_place/?id=<%= r.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a> <a class="btn btn-default btn-xs" href="./home/request_delete/?id=<%= r.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></span>
         </div>
     <% end %>
     <h2>장소 관리</h2>
     <% Place.all.each do |p| %>
         <div class="well well-sm col-md-12">
             <span class="label label-default"><%= p.category %></span> <%= p.placename %> <%= p.address %> <a href="<%= p.website %>"><%= p.website %></a>
-            <span class="pull-right"><span class="label label-default"><%= p.created_at.in_time_zone("Seoul").strftime("%Y-%m-%d %H:%M") %></span> <a class="btn btn-default btn-xs" href="../home/place_delete/?id=<%= p.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></span>
+            <span class="pull-right"><span class="label label-default"><%= p.created_at.in_time_zone("Seoul").strftime("%Y-%m-%d %H:%M") %></span> <a class="btn btn-default btn-xs" href="./home/place_delete/?id=<%= p.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></span>
         </div>
     <% end %>
 </div>
