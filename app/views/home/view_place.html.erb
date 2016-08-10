@@ -13,7 +13,7 @@ img {
             <h3><b><%= @place.placename %></b></h3>
             <p><%= @place.address %></p>
             <h3>
-                <a href="<%= @place.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a>
+                <a href="<%= @place.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a>&nbsp;
                 <a href="https://www.google.com/maps/dir//<%= URI.encode(@place.address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a>
             </h3>
             <h3>
@@ -25,7 +25,8 @@ img {
                         <span id="stars-existing" class="starrr" data-rating="0"></span>
                         0.0/5.0
                     <% end %>
-                </span>
+                </span>&nbsp;
+                <span class="label label-warning"><%= @place.rating_count %>번 평가</span>
             </h3>
             <hr>
             <p style="white-space: pre-wrap;"><%= sanitize @place.content, tags: %w(strong em a img image embed iframe span), attributes: %w(href src width height style) %></p>

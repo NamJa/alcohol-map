@@ -30,7 +30,7 @@
           '<p><%= @place[i].address %></p>'+
           '<h4><a href="<%= @place[i].website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a> ' +
           '<a href="https://www.google.com/maps/dir//<%= URI.encode(@place[i].address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a> ' +
-          '<span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (@place[i].rating.to_f / @place[i].rating_count.to_f).round(1) %>/5.0</span></h4>';
+          '<span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (@place[i].rating.to_f / @place[i].rating_count.to_f).round(1) %>/5.0</span> <span class="label label-warning"><%= @place[i].rating_count %>번 평가</span></h4>';
           
         marker[<%= i %>] = new google.maps.Marker({
           position: {lat: <%= @place[i].latitude %>, lng: <%= @place[i].longitude %>},

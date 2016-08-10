@@ -1,4 +1,5 @@
 require 'open-uri'
+
 class HomeController < ApplicationController
   def index
     @category = params[:category]
@@ -41,12 +42,31 @@ class HomeController < ApplicationController
     end
     
     req = Request.find_by(id: params[:id])
+    req.update(category: params[:category], placename: params[:placename], address: params[:address], website: params[:website])
+    req.save
     doc = Nokogiri::HTML(open("https://maps.googleapis.com/maps/api/geocode/xml?address=" + URI.encode(req.address) + "&key=AIzaSyBFwh5f4ZyyxHLsCvK339Bx2Uu7c4uxK80"))
     
     status = doc.xpath("//status/text()").to_s
     if status == "OK"
       Place.new(category: req.category, latitude: doc.xpath("//location//lat/text()").first, longitude: doc.xpath("//location//lng/text()").first, placename: req.placename, address: req.address, website: req.website, rating: 0, rating_count: 0).save
       req.destroy
+    end
+    redirect_to $root + "manage?key=" + @key
+  end
+  
+  def place_update
+    @key = params[:key]
+    unless ENV['MANAGE_ACCESS_KEY'] == @key
+      redirect_to $root
+    end
+    
+    place = Place.find_by(id: params[:id])
+    doc = Nokogiri::HTML(open("https://maps.googleapis.com/maps/api/geocode/xml?address=" + URI.encode(params[:address]) + "&key=AIzaSyBFwh5f4ZyyxHLsCvK339Bx2Uu7c4uxK80"))
+    
+    status = doc.xpath("//status/text()").to_s
+    if status == "OK"
+      place.update(category: params[:category], latitude: doc.xpath("//location//lat/text()").first, longitude: doc.xpath("//location//lng/text()").first, placename: params[:placename], address: params[:address], website: params[:website])
+      place.save
     end
     redirect_to $root + "manage?key=" + @key
   end

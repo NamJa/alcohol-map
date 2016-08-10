@@ -1,18 +1,81 @@
-<div class="container">
+<div class="container-fluid">
     <h2>요청 관리</h2>
     <% Request.all.each do |r| %>
-        <div class="well well-sm col-md-12">
-            <span class="pull-right"><span class="label label-default"><%= r.created_at.in_time_zone("Seoul").strftime("%Y-%m-%d %H:%M") %></span> <a class="btn btn-default btn-xs" href="<%= $root %>home/add_place/?id=<%= r.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a> <a class="btn btn-default btn-xs" href="<%= $root %>home/request_delete/?id=<%= r.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></span>
-            <span class="label label-primary"><%= r.category %></span> <b><%= r.placename %></b> <%= r.address %> <a class="btn btn-success btn-xs" href="<%= r.website %>"><%= r.website %></a>
-            <br>
-        </div>
+        <form class="row" action="<%= $root %>home/add_place" method="post">
+            <input type="hidden" name="key" value="<%= @key %>">
+            <input type="hidden" name="id" value="<%= r.id %>">
+            <div class="form-group col-md-1">
+              <select class="form-control" name="category" id="category">
+                  <% if r.category == "Pub" %>
+                    <option value="Pub" selected="selected">Pub</option>
+                    <option value="Bar">Bar</option>
+                    <option value="Store">Store</option>
+                  <% elsif r.category == "Bar" %>
+                    <option value="Pub">Pub</option>
+                    <option value="Bar" selected="selected">Bar</option>
+                    <option value="Store">Store</option>
+                  <% elsif r.category == "Store" %>
+                    <option value="Pub">Pub</option>
+                    <option value="Bar">Bar</option>
+                    <option value="Store" selected="selected">Store</option>
+                  <% end %>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <input type="text" class="form-control" name="placename" id="placename" placeholder="이름" value="<%= r.placename %>">
+            </div>
+            <div class="form-group col-md-4">
+              <input type="text" class="form-control" name="address" id="address" placeholder="주소" value="<%= r.address %>">
+            </div>
+            <div class="form-group col-md-3">
+              <input type="url" class="form-control" name="website" id="website" placeholder="웹사이트" value="<%= r.website %>">
+            </div>
+            <div class="form-group col-md-1">
+              <button type="submit" class="btn btn-default btn-block"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+            </div>
+            <div class="col-md-1">
+                <a class="btn btn-default btn-block" href="<%= $root %>home/request_delete/?id=<%= r.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            </div>
+        </form>
     <% end %>
+    
     <h2>장소 관리</h2>
     <% Place.all.each do |p| %>
-        <div class="well well-sm col-md-12">
-            <span class="pull-right"><span class="label label-default"><%= p.created_at.in_time_zone("Seoul").strftime("%Y-%m-%d %H:%M") %></span> <a class="btn btn-default btn-xs" href="<%= $root %>home/place_delete/?id=<%= p.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></span>
-            <span class="label label-primary"><%= p.category %></span> <b><%= p.placename %></b> <%= p.address %> <a class="btn btn-success btn-xs" href="<%= p.website %>"><%= p.website %></a>
-            <br>
-        </div>
+        <form class="row" action="<%= $root %>home/place_update" method="post">
+            <input type="hidden" name="key" value="<%= @key %>">
+            <input type="hidden" name="id" value="<%= p.id %>">
+            <div class="form-group col-md-1">
+              <select class="form-control" name="category" id="category">
+                  <% if p.category == "Pub" %>
+                    <option value="Pub" selected="selected">Pub</option>
+                    <option value="Bar">Bar</option>
+                    <option value="Store">Store</option>
+                  <% elsif p.category == "Bar" %>
+                    <option value="Pub">Pub</option>
+                    <option value="Bar" selected="selected">Bar</option>
+                    <option value="Store">Store</option>
+                  <% elsif p.category == "Store" %>
+                    <option value="Pub">Pub</option>
+                    <option value="Bar">Bar</option>
+                    <option value="Store" selected="selected">Store</option>
+                  <% end %>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <input type="text" class="form-control" name="placename" id="placename" placeholder="이름" value="<%= p.placename %>">
+            </div>
+            <div class="form-group col-md-4">
+              <input type="text" class="form-control" name="address" id="address" placeholder="주소" value="<%= p.address %>">
+            </div>
+            <div class="form-group col-md-3">
+              <input type="url" class="form-control" name="website" id="website" placeholder="웹사이트" value="<%= p.website %>">
+            </div>
+            <div class="form-group col-md-1">
+              <button type="submit" class="btn btn-default btn-block"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+            </div>
+            <div class="col-md-1">
+                <a class="btn btn-default btn-block" href="<%= $root %>home/place_delete/?id=<%= p.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            </div>
+        </form>
     <% end %>
 </div>
