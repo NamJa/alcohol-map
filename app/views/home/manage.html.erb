@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <h2>요청 관리</h2>
     <% Request.all.each do |r| %>
-        <form class="row" action="<%= $root %>home/add_place" method="post">
+        <form class="row" action="/home/add_place" method="post">
             <input type="hidden" name="key" value="<%= @key %>">
             <input type="hidden" name="id" value="<%= r.id %>">
             <div class="form-group col-md-1">
@@ -34,14 +34,14 @@
               <button type="submit" class="btn btn-default btn-block"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
             </div>
             <div class="col-md-1">
-                <a class="btn btn-default btn-block" href="<%= $root %>home/request_delete/?id=<%= r.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                <a class="btn btn-default btn-block" href="/home/request_delete/?id=<%= r.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
             </div>
         </form>
     <% end %>
     
     <h2>장소 관리</h2>
     <% Place.all.each do |p| %>
-        <form class="row" action="<%= $root %>home/place_update" method="post">
+        <form class="row" action="/home/place_update" method="post">
             <input type="hidden" name="key" value="<%= @key %>">
             <input type="hidden" name="id" value="<%= p.id %>">
             <div class="form-group col-md-1">
@@ -74,7 +74,7 @@
               <button type="submit" class="btn btn-default btn-block"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
             </div>
             <div class="col-md-1">
-                <a class="btn btn-default btn-block" href="<%= $root %>home/place_delete/?id=<%= p.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                <a class="btn btn-default btn-block" href="/home/place_delete/?id=<%= p.id %>&key=<%= @key %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
             </div>
         </form>
     <% end %>

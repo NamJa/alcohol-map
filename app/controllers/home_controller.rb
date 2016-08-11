@@ -17,13 +17,13 @@ class HomeController < ApplicationController
   def manage
     @key = params[:key]
     unless ENV['MANAGE_ACCESS_KEY'] == @key
-      redirect_to $root
+      redirect_to "/"
     end
   end
   
   def add_req
     unless params[:category] == "Pub" || params[:category] == "Bar" || params[:category] == "Store" 
-      redirect_to $root + "request"
+      redirect_to "/request"
     end
     
     doc = Nokogiri::HTML(open("https://maps.googleapis.com/maps/api/geocode/xml?address=" + URI.encode(params[:address]) + "&key=AIzaSyBFwh5f4ZyyxHLsCvK339Bx2Uu7c4uxK80"))
@@ -32,13 +32,13 @@ class HomeController < ApplicationController
     if status == "OK"
       Request.new(category: params[:category], placename: params[:placename], address: params[:address], website: params[:website]).save
     end
-    redirect_to $root + "request"
+    redirect_to "/request"
   end
   
   def add_place
     @key = params[:key]
     unless ENV['MANAGE_ACCESS_KEY'] == @key
-      redirect_to $root
+      redirect_to "/"
     end
     
     req = Request.find_by(id: params[:id])
@@ -51,13 +51,13 @@ class HomeController < ApplicationController
       Place.new(category: req.category, latitude: doc.xpath("//location//lat/text()").first, longitude: doc.xpath("//location//lng/text()").first, placename: req.placename, address: req.address, website: req.website, rating: 0, rating_count: 0).save
       req.destroy
     end
-    redirect_to $root + "manage?key=" + @key
+    redirect_to "/manage?key=" + @key
   end
   
   def place_update
     @key = params[:key]
     unless ENV['MANAGE_ACCESS_KEY'] == @key
-      redirect_to $root
+      redirect_to "/"
     end
     
     place = Place.find_by(id: params[:id])
@@ -68,29 +68,29 @@ class HomeController < ApplicationController
       place.update(category: params[:category], latitude: doc.xpath("//location//lat/text()").first, longitude: doc.xpath("//location//lng/text()").first, placename: params[:placename], address: params[:address], website: params[:website])
       place.save
     end
-    redirect_to $root + "manage?key=" + @key
+    redirect_to "/manage?key=" + @key
   end
   
   def request_delete
     @key = params[:key]
     unless ENV['MANAGE_ACCESS_KEY'] == @key
-      redirect_to $root
+      redirect_to "/"
     end
     
     req = Request.find_by(id: params[:id])
     req.destroy
-    redirect_to $root + "manage?key=" + @key
+    redirect_to "/manage?key=" + @key
   end
   
   def place_delete
     @key = params[:key]
     unless ENV['MANAGE_ACCESS_KEY'] == @key
-      redirect_to $root
+      redirect_to "/"
     end
     
     place = Place.find_by(id: params[:id])
     place.destroy
-    redirect_to $root + "manage?key=" + @key
+    redirect_to "/manage?key=" + @key
   end
   
   def view_place
@@ -106,7 +106,7 @@ class HomeController < ApplicationController
     place.update(website: params[:website], content: params[:content])
     
     if place.save
-      redirect_to $root + "place?id=" + params[:id]
+      redirect_to "/place?id=" + params[:id]
     end
   end
   
@@ -116,7 +116,7 @@ class HomeController < ApplicationController
     unless Rating.nil?
       Rating.all.each do |r|
         if rating.place_id == r.place_id && rating.ip == r.ip
-          redirect_to $root + "place?id=" + params[:id]
+          redirect_to "/place?id=" + params[:id]
           return
         end
       end
@@ -126,7 +126,7 @@ class HomeController < ApplicationController
     place.rating_count += 1
     
     if rating.save && place.save
-      redirect_to $root + "place?id=" + params[:id]
+      redirect_to "/place?id=" + params[:id]
     end
   end
 end

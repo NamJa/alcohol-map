@@ -30,14 +30,13 @@
         map.setZoom(15)
       });
     }
-    
     var infowindow = new google.maps.InfoWindow();
     var contentString = [];
     var marker = [];
     <% unless @place.nil? %>
       <% for i in 0..(@place.count - 1) %>
         contentString[<%= i %>] = '<h4><span class="label label-primary"><%= @place[i].category %></span></h4>' +
-          '<h3><b><a href="<%= $root %>place?id=<%= @place[i].id %>" style="text-decoration:none;"><%= @place[i].placename %></a></b></h3>'+
+          '<h3><b><a href="/place?id=<%= @place[i].id %>" style="text-decoration:none;"><%= @place[i].placename %></a></b></h3>'+
           '<p><%= @place[i].address %></p>'+
           '<h4><a href="<%= @place[i].website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a> ' +
           '<a href="https://www.google.com/maps/dir//<%= URI.encode(@place[i].address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a> ' +
@@ -46,7 +45,7 @@
         marker[<%= i %>] = new google.maps.Marker({
           position: {lat: <%= @place[i].latitude %>, lng: <%= @place[i].longitude %>},
           map: map,
-          icon: '<%= $root %><%= @place[i].category %>.png',
+          icon: '/<%= @place[i].category %>.png',
           title: '<%= @place[i].placename %>'
         });
         marker[<%= i %>].addListener('click', function() {
@@ -62,6 +61,5 @@
       readOnly: true
     })
 </script>
-
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFwh5f4ZyyxHLsCvK339Bx2Uu7c4uxK80&callback=initMap"></script>

@@ -1,5 +1,5 @@
-## Alcohol Map (Pub & Bar in Korea)
+## Alcohol Map (Pub, Bar, Store)
 
-http://52.78.112.55/map
+http://map.yrails.com
 
-Using Ruby on Rails
+Using Ruby on Rails, Bootstrap, AWS, nginx
