@@ -5,13 +5,50 @@
   }
   #map {
     width: 100%;
-    height: 90%;
+    height: 80%;
   }
 </style>
 
 <%= render "layouts/nav" %>
 
 <div id="map"></div><br>
+
+<div class="container-fluid">
+    <div class="panel panel-default col-md-6">
+        <table class="table">
+            <caption>인기있는 장소</caption>
+            <tbody>
+                <% @place.order("(rating+0.0) / rating_count DESC").limit(5).each do |p| %>
+                  <tr>
+                    <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
+                    <th class="text-center"><%= p.placename %></th>
+                    <th class="text-center"><a href="<%= p.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a></th>
+                    <th class="text-center"><a href="https://www.google.com/maps/dir//<%= URI.encode(p.address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a></th>
+                    <th class="text-center"><span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span></th>
+                    <th class="text-center"><span class="label label-warning"><%= p.rating_count %>번 평가</span></th>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel panel-default col-md-6">
+        <table class="table">
+            <caption>새로 추가된 곳</caption>
+            <tbody>
+                <% @place.order(created_at: :desc).limit(5).each do |p| %>
+                  <tr>
+                    <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
+                    <th class="text-center"><%= p.placename %></th>
+                    <th class="text-center"><a href="<%= p.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a></th>
+                    <th class="text-center"><a href="https://www.google.com/maps/dir//<%= URI.encode(p.address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a></th>
+                    <th class="text-center"><span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span></th>
+                    <th class="text-center"><span class="label label-warning"><%= p.rating_count %>번 평가</span></th>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <script>
   function initMap() {
@@ -39,8 +76,8 @@
           '<h3><b><a href="/place?id=<%= @place[i].id %>" style="text-decoration:none;"><%= @place[i].placename %></a></b></h3>'+
           '<p><%= @place[i].address %></p>'+
           '<h4><a href="<%= @place[i].website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a> ' +
-          '<a href="https://www.google.com/maps/dir//<%= URI.encode(@place[i].address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a> ' +
-          '<span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (@place[i].rating.to_f / @place[i].rating_count.to_f).round(1) %>/5.0</span> <span class="label label-warning"><%= @place[i].rating_count %>번 평가</span></h4>';
+          '<a href="https://www.google.com/maps/dir//<%= URI.encode(@place[i].address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a></h4>' +
+          '<h4><span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (@place[i].rating.to_f / @place[i].rating_count.to_f).round(1) %>/5.0</span> <span class="label label-warning"><%= @place[i].rating_count %>번 평가</span></h4>';
           
         marker[<%= i %>] = new google.maps.Marker({
           position: {lat: <%= @place[i].latitude %>, lng: <%= @place[i].longitude %>},
