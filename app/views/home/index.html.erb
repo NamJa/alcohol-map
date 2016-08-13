@@ -25,8 +25,7 @@
                     <th class="text-center">
                       <a href="<%= p.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a>
                       <a href="https://www.google.com/maps/dir//<%= URI.encode(p.address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a>
-                      <span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span>
-                      <span class="label label-warning"><%= p.rating_count %>번 평가</span>
+                      <span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span><span class="label label-warning"><%= p.rating_count %></span>
                     </th>
                   </tr>
                 <% end %>
@@ -44,8 +43,7 @@
                     <th class="text-center">
                       <a href="<%= p.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a>
                       <a href="https://www.google.com/maps/dir//<%= URI.encode(p.address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a>
-                      <span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span>
-                      <span class="label label-warning"><%= p.rating_count %>번 평가</span>
+                      <span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span><span class="label label-warning"><%= p.rating_count %></span>
                     </th>
                   </tr>
                 <% end %>
@@ -80,8 +78,8 @@
           '<h3><b><a href="/place?id=<%= @place[i].id %>" style="text-decoration:none;"><%= @place[i].placename %></a></b></h3>'+
           '<p><%= @place[i].address %></p>'+
           '<h4><a href="<%= @place[i].website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a> ' +
-          '<a href="https://www.google.com/maps/dir//<%= URI.encode(@place[i].address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a></h4>' +
-          '<h4><span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (@place[i].rating.to_f / @place[i].rating_count.to_f).round(1) %>/5.0</span> <span class="label label-warning"><%= @place[i].rating_count %>번 평가</span></h4>';
+          '<a href="https://www.google.com/maps/dir//<%= URI.encode(@place[i].address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a> ' +
+          '<span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (@place[i].rating.to_f / @place[i].rating_count.to_f).round(1) %>/5.0</span><span class="label label-warning"><%= @place[i].rating_count %></span></h4>';
           
         marker[<%= i %>] = new google.maps.Marker({
           position: {lat: <%= @place[i].latitude %>, lng: <%= @place[i].longitude %>},

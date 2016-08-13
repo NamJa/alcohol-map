@@ -25,8 +25,8 @@ img {
                         <span id="stars-existing" class="starrr"></span>
                         0.0/5.0
                     <% end %>
-                </span>&nbsp;
-                <span class="label label-warning"><%= @place.rating_count %>번 평가</span>
+                </span>
+                <span class="label label-warning"><%= @place.rating_count %></span>
             </h3>
             <hr>
             <p style="white-space: pre-wrap;"><%= sanitize @place.content, tags: %w(strong em a img image embed iframe span), attributes: %w(href src width height style) %></p>

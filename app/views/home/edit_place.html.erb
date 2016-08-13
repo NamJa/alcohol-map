@@ -20,12 +20,11 @@
                             <span id="stars-existing" class="starrr"></span>
                             0.0/5.0
                         <% end %>
-                    </span>&nbsp;
-                    <span class="label label-warning"><%= @place.rating_count %>번 평가</span>
+                    </span>
+                    <span class="label label-warning"><%= @place.rating_count %></span>
                 </h3>
                 <hr>
                 <input type="hidden" name="id" value="<%= @place.id %>">
-                <input type="text" name="website" id="website" class="form-control" placeholder="웹사이트" value="<%= @place.website %>"><br>
                 <textarea class="form-control" rows="10" id="content" name="content"><%= @place.content %></textarea><br>
             </div>
         </div>

@@ -103,7 +103,7 @@ class HomeController < ApplicationController
   
   def edit_place_submit
     place = Place.find_by(id: params[:id])
-    place.update(website: params[:website], content: params[:content])
+    place.update(content: params[:content])
     
     if place.save
       redirect_to "/place?id=" + params[:id]
