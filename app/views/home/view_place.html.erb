@@ -19,10 +19,10 @@ img {
             <h3>
                 <span class="label label-danger">
                     <% if @place.rating_count != 0 %>
-                        <span id="stars-existing" class="starrr" data-rating="<%= @place.rating / @place.rating_count %>"></span>
+                        <span id="stars-existing" class="starrr"></span>
                         <%= (@place.rating.to_f / @place.rating_count.to_f).round(1) %>/5.0
                     <% else %>
-                        <span id="stars-existing" class="starrr" data-rating="0"></span>
+                        <span id="stars-existing" class="starrr"></span>
                         0.0/5.0
                     <% end %>
                 </span>&nbsp;
