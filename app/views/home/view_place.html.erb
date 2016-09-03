@@ -1,11 +1,20 @@
+<% content_for :title, @place.placename %>
+
 <style>
 img {
     max-height: 500px;
 }
 </style>
 
-<%= render "layouts/nav" %>
+<style>
+  #map {
+    width: 100%;
+    height: 200px;
+  }
+</style>
 
+<%= render "layouts/nav" %>
+            
 <div class="container" style="margin-top: 20px;margin-bottom: 20px;">
     <div class="thumbnail">
         <div style="margin-left:15px;margin-right:15px;" class="caption-full">
@@ -28,17 +37,34 @@ img {
                 </span>
                 <span class="label label-warning"><%= @place.rating_count %></span>
             </h3>
+            <br><div id="map"></div>
             <hr>
             <p style="white-space: pre-wrap;"><%= sanitize @place.content, tags: %w(strong em a img image embed iframe span), attributes: %w(href src width height style) %></p>
             <br>
         </div>
     </div>
+    <div id="ads" align="center"></div>
     <div id="disqus_thread"></div>
     <a class="btn btn-default" href="/"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> 지도</a>
     <div class="pull-right">
         <a class="btn btn-default" href="/edit?id=<%= @place.id %>"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 수정</a>
     </div>
 </div>
+
+<script>
+  var mobile = '<iframe width="320" height="50" allowtransparency="true" src="http://mtab.clickmon.co.kr/pop/wp_m_320.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1028213%7C%5E%7CAdver_M_1003115&rt_ad_id_code=RTA_103951" frameborder="0" scrolling="no"></iframe>';
+  var pc = '<iframe width="728" height="90" allowtransparency="true" src="http://tab2.clickmon.co.kr/pop/wp_ad_728.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1028213%7C%5E%7CAdver_M_1003115&rt_ad_id_code=RTA_103951" frameborder="0" scrolling="no"></iframe>';
+  var div = document.getElementById( 'ads' );
+  
+  if (/android|webos|iphone|ipad|ipod|blackberry|windows phone/i.test(navigator.userAgent))
+  {
+    div.insertAdjacentHTML( 'beforeend', mobile );
+  }
+  else
+  {
+    div.insertAdjacentHTML( 'beforeend', pc );
+  }
+</script>
 
 <script>
 /**
@@ -67,3 +93,26 @@ var disqus_config = function () {
       }
     })
 </script>
+
+<script>
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: {lat: <%= @place.latitude.to_f %>, lng: <%= @place.longitude %>},
+      streetViewControl: false,
+      mapTypeControl: false
+    });
+    
+    var marker;
+    <% unless @place.nil? %>
+        marker = new google.maps.Marker({
+          position: {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>},
+          map: map,
+          icon: '/<%= @place.category %>.png',
+          title: '<%= @place.placename %>'
+        });
+    <% end %>
+  }
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFwh5f4ZyyxHLsCvK339Bx2Uu7c4uxK80&callback=initMap"></script>

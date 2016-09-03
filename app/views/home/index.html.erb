@@ -1,3 +1,5 @@
+<% content_for :title, "Alcohol Map" %>
+
 <style>
   body, html {
     height: 100%;
@@ -14,49 +16,67 @@
 <div id="map"></div><br>
 
 <div class="container-fluid">
-    <div class="panel panel-default col-md-6">
-        <table class="table">
-            <caption><b>인기 있는 장소</b></caption>
-            <tbody>
-                <% @place.where("rating_count > 1").order("(rating+0.0) / rating_count DESC, rating_count DESC").limit(10).each do |p| %>
-                  <tr>
-                    <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
-                    <th class="text-center"><a href="/place?id=<%= p.id %>" style="text-decoration:none;color:black;"><%= p.placename %></a></th>
-                    <th class="text-center">
-                      <a href="<%= p.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a>
-                      <a href="https://www.google.com/maps/dir//<%= URI.encode(p.address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a>
-                      <span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span><span class="label label-warning"><%= p.rating_count %></span>
-                    </th>
-                  </tr>
-                <% end %>
-            </tbody>
-        </table>
-    </div>
-    <div class="panel panel-default col-md-6">
-        <table class="table">
-            <caption><b>최근 수정된 장소</b></caption>
-            <tbody>
-                <% @place.order(updated_at: :desc).limit(10).each do |p| %>
-                  <tr>
-                    <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
-                    <th class="text-center"><a href="/place?id=<%= p.id %>" style="text-decoration:none;color:black;"><%= p.placename %></a></th>
-                    <th class="text-center">
-                      <a href="<%= p.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a>
-                      <a href="https://www.google.com/maps/dir//<%= URI.encode(p.address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a>
-                      <span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span><span class="label label-warning"><%= p.rating_count %></span>
-                    </th>
-                  </tr>
-                <% end %>
-            </tbody>
-        </table>
-    </div>
+  <div class="panel panel-default col-md-6">
+    <table class="table">
+      <caption><b>인기 있는 장소</b></caption>
+      <tbody>
+        <% @place.where("rating_count > 0").order("(rating+0.0) / rating_count DESC, rating_count DESC").limit(10).each do |p| %>
+          <tr>
+            <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
+            <th class="text-center"><a href="/place?id=<%= p.id %>" style="text-decoration:none;color:black;"><%= p.placename %></a></th>
+            <th class="text-center">
+              <a href="<%= p.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a>
+              <a href="https://www.google.com/maps/dir//<%= URI.encode(p.address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a>
+              <span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span><span class="label label-warning"><%= p.rating_count %></span>
+            </th>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel panel-default col-md-6">
+    <table class="table">
+      <caption><b>최근 수정된 장소</b></caption>
+      <tbody>
+        <% @place.order(updated_at: :desc).limit(10).each do |p| %>
+          <tr>
+            <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
+            <th class="text-center"><a href="/place?id=<%= p.id %>" style="text-decoration:none;color:black;"><%= p.placename %></a></th>
+            <th class="text-center">
+              <a href="<%= p.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a>
+              <a href="https://www.google.com/maps/dir//<%= URI.encode(p.address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a>
+              <span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span><span class="label label-warning"><%= p.rating_count %></span>
+            </th>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div id="ads" align="center"></div>
 </div>
+
+<script>
+  var mobile = '<iframe width="320" height="50" allowtransparency="true" src="http://mtab.clickmon.co.kr/pop/wp_m_320.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1028213%7C%5E%7CAdver_M_1003115&rt_ad_id_code=RTA_103951" frameborder="0" scrolling="no"></iframe>';
+  var pc = '<iframe width="728" height="90" allowtransparency="true" src="http://tab2.clickmon.co.kr/pop/wp_ad_728.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1028213%7C%5E%7CAdver_M_1003115&rt_ad_id_code=RTA_103951" frameborder="0" scrolling="no"></iframe>';
+  var div = document.getElementById( 'ads' );
+  
+  if (/android|webos|iphone|ipad|ipod|blackberry|windows phone/i.test(navigator.userAgent))
+  {
+    div.insertAdjacentHTML( 'beforeend', mobile );
+  }
+  else
+  {
+    div.insertAdjacentHTML( 'beforeend', pc );
+  }
+</script>
 
 <script>
   function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 11,
-      center: {lat: 37.566535, lng: 126.9779692}
+      center: {lat: 37.566535, lng: 126.9779692},
+      streetViewControl: false,
+      mapTypeControl: false
     });
     
     if (navigator.geolocation) {

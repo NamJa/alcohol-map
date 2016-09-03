@@ -1,3 +1,5 @@
+<% content_for :title, "Alcohol Map" %>
+
 <%= render "layouts/nav" %>
 
 <div class="container-fluid">
@@ -23,9 +25,25 @@
       <button type="submit" class="btn btn-default btn-block"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> 요청하기</button>
     </div>
   </form>
+  <div id="ads" align="center"></div>
   <hr>
   <p align="right">ooqwe486@Gmail.com © 2016</p>
 </div>
+
+<script>
+  var mobile = '<iframe width="320" height="50" allowtransparency="true" src="http://mtab.clickmon.co.kr/pop/wp_m_320.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1028213%7C%5E%7CAdver_M_1003115&rt_ad_id_code=RTA_103951" frameborder="0" scrolling="no"></iframe>';
+  var pc = '<iframe width="728" height="90" allowtransparency="true" src="http://tab2.clickmon.co.kr/pop/wp_ad_728.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1028213%7C%5E%7CAdver_M_1003115&rt_ad_id_code=RTA_103951" frameborder="0" scrolling="no"></iframe>';
+  var div = document.getElementById( 'ads' );
+  
+  if (/android|webos|iphone|ipad|ipod|blackberry|windows phone/i.test(navigator.userAgent))
+  {
+    div.insertAdjacentHTML( 'beforeend', mobile );
+  }
+  else
+  {
+    div.insertAdjacentHTML( 'beforeend', pc );
+  }
+</script>
 
 <script>
   function validateForm() {
