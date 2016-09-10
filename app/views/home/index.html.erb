@@ -33,7 +33,7 @@
     <table class="table">
       <caption><b>인기 있는 장소</b></caption>
       <tbody>
-        <% @place.where("rating_count > 0").order("(rating+0.0) / rating_count DESC, rating_count DESC").limit(12).each do |p| %>
+        <% @place.where("rating_count > 0").order("(rating+0.0) / rating_count DESC, rating_count DESC").limit(10).each do |p| %>
           <tr>
             <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
             <th class="text-center"><a href="/place?id=<%= p.id %>" style="text-decoration:none;color:black;"><%= p.placename %></a></th>
