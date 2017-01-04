@@ -10,15 +10,15 @@
               <select class="form-control" name="category" id="category">
                   <% if r.category == "Pub" %>
                     <option value="Pub" selected="selected">Pub</option>
-                    <option value="Bar">Bar</option>
+                    <option value="Brewery">Brewery</option>
                     <option value="Store">Store</option>
-                  <% elsif r.category == "Bar" %>
+                  <% elsif r.category == "Brewery" %>
                     <option value="Pub">Pub</option>
-                    <option value="Bar" selected="selected">Bar</option>
+                    <option value="Brewery" selected="selected">Brewery</option>
                     <option value="Store">Store</option>
                   <% elsif r.category == "Store" %>
                     <option value="Pub">Pub</option>
-                    <option value="Bar">Bar</option>
+                    <option value="Brewery">Brewery</option>
                     <option value="Store" selected="selected">Store</option>
                   <% end %>
               </select>
@@ -40,7 +40,7 @@
             </div>
         </form>
     <% end %>
-    
+
     <h2>장소 관리</h2>
     <% Place.all.each do |p| %>
         <form class="row" action="/home/place_update" method="post">
@@ -50,15 +50,15 @@
               <select class="form-control" name="category" id="category">
                   <% if p.category == "Pub" %>
                     <option value="Pub" selected="selected">Pub</option>
-                    <option value="Bar">Bar</option>
+                    <option value="Brewery">Brewery</option>
                     <option value="Store">Store</option>
-                  <% elsif p.category == "Bar" %>
+                  <% elsif p.category == "Brewery" %>
                     <option value="Pub">Pub</option>
-                    <option value="Bar" selected="selected">Bar</option>
+                    <option value="Brewery" selected="selected">Brewery</option>
                     <option value="Store">Store</option>
                   <% elsif p.category == "Store" %>
                     <option value="Pub">Pub</option>
-                    <option value="Bar">Bar</option>
+                    <option value="Brewery">Brewery</option>
                     <option value="Store" selected="selected">Store</option>
                   <% end %>
               </select>
