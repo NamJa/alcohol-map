@@ -25,18 +25,26 @@
       <button type="submit" class="btn btn-default btn-block"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> 요청하기</button>
     </div>
   </form>
-  <!--<div align="center">-->
-  <!--  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
-    <!-- Responsive -->
-  <!--  <ins class="adsbygoogle"-->
-  <!--       style="display:block"-->
-  <!--       data-ad-client="ca-pub-3397336129295247"-->
-  <!--       data-ad-slot="3429266211"-->
-  <!--       data-ad-format="auto"></ins>-->
-  <!--  <script>-->
-  <!--  (adsbygoogle = window.adsbygoogle || []).push({});-->
-  <!--  </script>-->
-  <!--</div>-->
+
+  <div class="panel panel-default">
+    <table class="table">
+      <caption><b>전체 장소</b></caption>
+      <tbody>
+        <% @place.all.each do |p| %>
+          <tr>
+            <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
+            <th class="text-center"><a href="/place?id=<%= p.id %>" style="text-decoration:none;color:black;"><%= p.placename %></a></th>
+            <th class="text-center">
+              <a href="<%= p.website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a>
+              <a href="https://www.google.com/maps/dir//<%= URI.encode(p.address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a>
+              <span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (p.rating.to_f / p.rating_count.to_f).round(1) %>/5.0</span><span class="label label-warning"><%= p.rating_count %></span>
+            </th>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
   <hr>
   <p align="right">ooqwe486@Gmail.com © 2017</p>
 </div>
