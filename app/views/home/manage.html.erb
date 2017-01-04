@@ -1,5 +1,7 @@
 <% content_for :title, "Alcohol Map" %>
 
+<%= render "layouts/nav" %>
+
 <div class="container-fluid">
     <h2>요청 관리</h2>
     <% Request.all.each do |r| %>
@@ -81,3 +83,5 @@
         </form>
     <% end %>
 </div>
+
+<%= render "layouts/copyright" %>

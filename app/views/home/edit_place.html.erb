@@ -50,6 +50,8 @@
     </form>
 </div>
 
+<%= render "layouts/copyright" %>
+
 <script>
     function validateForm() {
         var content = document.getElementById("content").value;
@@ -65,7 +67,7 @@
             return false;
         }
     }
-    
+
     $('.starrr').starrr({
       change: function(e, value){
         window.location.href = "/home/rating_submit?id=<%= @place.id %>&score=" + value;
