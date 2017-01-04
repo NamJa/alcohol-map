@@ -33,7 +33,7 @@
     <table class="table">
       <caption><b>인기 있는 장소</b></caption>
       <tbody>
-        <% @place.where("rating_count > 0").order("(rating+0.0) / rating_count DESC, rating_count DESC").limit(10).each do |p| %>
+        <% @place.where("rating_count > 0").order("(rating+0.0) / rating_count DESC, rating_count DESC").limit(20).each do |p| %>
           <tr>
             <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
             <th class="text-center"><a href="/place?id=<%= p.id %>" style="text-decoration:none;color:black;"><%= p.placename %></a></th>
@@ -51,7 +51,7 @@
     <table class="table">
       <caption><b>최근 수정된 장소</b></caption>
       <tbody>
-        <% @place.order(updated_at: :desc).limit(10).each do |p| %>
+        <% @place.order(updated_at: :desc).limit(20).each do |p| %>
           <tr>
             <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
             <th class="text-center"><a href="/place?id=<%= p.id %>" style="text-decoration:none;color:black;"><%= p.placename %></a></th>
@@ -75,7 +75,7 @@
       streetViewControl: false,
       mapTypeControl: false
     });
-    
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
@@ -97,7 +97,7 @@
           '<h4><a href="<%= @place[i].website %>" target="_blank" style="text-decoration:none;"><span class="label label-success">웹사이트</span></a> ' +
           '<a href="https://www.google.com/maps/dir//<%= URI.encode(@place[i].address) %>" target="_blank" style="text-decoration:none;"><span class="label label-info">길찾기</span></a> ' +
           '<span class="label label-danger"><span class="glyphicon glyphicon-star"></span><%= (@place[i].rating.to_f / @place[i].rating_count.to_f).round(1) %>/5.0</span><span class="label label-warning"><%= @place[i].rating_count %></span></h4>';
-          
+
         marker[<%= i %>] = new google.maps.Marker({
           position: {lat: <%= @place[i].latitude %>, lng: <%= @place[i].longitude %>},
           map: map,
@@ -111,7 +111,7 @@
       <% end %>
     <% end %>
   }
-    
+
     $( "li[name=<%= @category %>]" ).addClass( "active" );
     $('.starrr').starrr({
       readOnly: true
