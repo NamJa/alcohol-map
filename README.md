@@ -1,5 +1,5 @@
-## Alcohol Map (Pub, Bar, Store)
+## Alcohol Map (Pub, Brewery, Store)
 
 http://map.yrails.com
 
-Using Ruby on Rails, Bootstrap, AWS, nginx
+Using Ruby on Rails, Bootstrap, Heroku
