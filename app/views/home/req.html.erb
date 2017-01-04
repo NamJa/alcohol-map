@@ -30,7 +30,7 @@
     <table class="table">
       <caption><b>전체 장소</b></caption>
       <tbody>
-        <% @place.all.each do |p| %>
+        <% Place.all.each do |p| %>
           <tr>
             <th class="text-center"><span class="label label-primary"><%= p.category %></span></th>
             <th class="text-center"><a href="/place?id=<%= p.id %>" style="text-decoration:none;color:black;"><%= p.placename %></a></th>
