@@ -5,7 +5,12 @@ gem 'nokogiri'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.0.1'
 # Use pg as the database for Active Record
-gem 'pg'
+group :development do
+  gem 'sqlite3'
+end
+group :production do
+  gem 'pg'
+end
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
