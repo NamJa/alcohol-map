@@ -1,5 +1,3 @@
-## Alcohol Map (Pub, Brewery, Store)
+## Alcohol Map
 
-http://map.yrails.com
-
-Using Ruby on Rails, Bootstrap, Heroku
+Pub, Brewery, Store in Korea
