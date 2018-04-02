@@ -1,5 +1,5 @@
 ## Alcohol Map
 Pub, Brewery, Store in Korea
 
-[Website](http://map.yrails.com)
+[Website](https://alcohol-map.herokuapp.com)
 [YouTube](https://youtu.be/6tEOuHD3ieg)
